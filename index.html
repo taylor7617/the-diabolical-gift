@@ -3,1245 +3,282 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>THE DIABOLICAL GIFT · FLIGHTLINE HQ · CDIA → AGENCY CONSOLE</title>
+  <title>THE DIABOLICAL GIFT · NETTOPIA IA · CDIA → AGENCY</title>
+
   <meta name="theme-color" content="#020617" />
-  <meta name="description" content="FlightLine HQ · CDIA Alignment Console → Agency On-Boarding · 1,000-seat aircraft · sector duty grid · quiet civic infrastructure." />
+  <meta name="description"
+    content="NETTOPIA IA (Intelligence Assets) · TOP Status (Trainer · Operator · Pilot) · CDIA Alignment Console · Voluntary, education-first civic infrastructure." />
 
   <style>
     :root{
-      --bg0:#05070c;--bg1:#070b12;--panel:#0b1220;--panel2:#0a0f1a;--ink:#e5e7eb;--muted:#94a3b8;
-      --border:#152033;--border2:#22314d;--accent:#38bdf8;--hot:#a78bfa;--ok:#34d399;--warn:#fbbf24;--bad:#fb7185;
-      --shadow:0 16px 50px rgba(0,0,0,.45);--r:16px;--r2:22px;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --bg:#05070c;
+      --panel:#0b1220;
+      --panel2:#0a0f1a;
+      --ink:#e5e7eb;
+      --muted:#94a3b8;
+      --border:#152033;
+      --accent:#38bdf8;
+      --hot:#a78bfa;
+      --ok:#34d399;
+      --warn:#fbbf24;
+      --shadow:0 16px 50px rgba(0,0,0,.45);
+      --r:18px;
       --sans: system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      --mono: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
     }
+
     *{box-sizing:border-box}
-    html,body{height:100%}
     body{
-      margin:0;font-family:var(--sans);color:var(--ink);
+      margin:0;
+      font-family:var(--sans);
+      color:var(--ink);
       background:
-        radial-gradient(1100px 700px at 15% -10%, rgba(167,139,250,.18), transparent 58%),
-        radial-gradient(900px 650px at 92% 18%, rgba(56,189,248,.14), transparent 60%),
-        radial-gradient(1000px 700px at 60% 120%, rgba(52,211,153,.10), transparent 65%),
-        linear-gradient(180deg,var(--bg1),var(--bg0) 70%);
-      overflow-x:hidden;
+        radial-gradient(1000px 700px at 20% -10%, rgba(167,139,250,.18), transparent 60%),
+        radial-gradient(900px 600px at 90% 15%, rgba(56,189,248,.14), transparent 60%),
+        linear-gradient(180deg,#070b12,var(--bg) 70%);
     }
-    a{color:inherit}
-    .wrap{max-width:1320px;margin:0 auto;padding:0 18px}
-    .topbar{
-      position:sticky;top:0;z-index:50;
+
+    .wrap{max-width:1200px;margin:0 auto;padding:0 18px}
+    a{text-decoration:none;color:inherit}
+
+    header{
       border-bottom:1px solid var(--border);
-      background:linear-gradient(135deg, rgba(2,6,23,.92), rgba(2,6,23,.55));
-      backdrop-filter: blur(10px);
+      background:linear-gradient(135deg, rgba(2,6,23,.95), rgba(2,6,23,.55));
+      position:sticky;top:0;z-index:50;
+      backdrop-filter: blur(8px);
     }
-    .topbar .row{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:14px 0}
+
+    .head{
+      display:flex;gap:14px;align-items:center;justify-content:space-between;
+      padding:14px 0;
+    }
+
     .brand{display:flex;gap:12px;align-items:center}
     .sig{
       width:38px;height:38px;border-radius:12px;
-      background:linear-gradient(135deg, rgba(56,189,248,.95), rgba(167,139,250,.92));
-      box-shadow:0 10px 30px rgba(56,189,248,.15);
-      display:grid;place-items:center;color:#05070c;font-weight:900;letter-spacing:.06em
+      display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--accent),var(--hot));
+      color:#05070c;font-weight:900;letter-spacing:.08em;
     }
-    .brand h1{margin:0;font-size:1.05rem;letter-spacing:.08em}
-    .brand .sub{color:var(--muted);font-size:.78rem;margin-top:3px}
-    .brand .stack{display:flex;flex-direction:column;line-height:1.1}
-    .pillRow{display:flex;flex-wrap:wrap;gap:8px}
+    .title h1{margin:0;font-size:1.05rem;letter-spacing:.08em}
+    .title .sub{font-size:.8rem;color:var(--muted)}
+
+    .pillRow{display:flex;gap:8px;flex-wrap:wrap;padding-bottom:12px}
     .pill{
-      font-size:.75rem;padding:7px 10px;border-radius:999px;border:1px solid var(--border);
-      color:#cbd5e1;background:rgba(11,18,32,.55)
+      font-size:.75rem;padding:6px 10px;border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(11,18,32,.55);
+      color:#cbd5e1;
     }
     .pill b{color:#fff}
-    .actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
-    .btn{
-      border:1px solid var(--border2);background:rgba(2,6,23,.35);color:var(--ink);
-      padding:9px 12px;border-radius:12px;cursor:pointer;font-weight:800;letter-spacing:.02em;
-      transition:.16s ease;display:inline-flex;gap:8px;align-items:center;user-select:none
-    }
-    .btn:hover{transform:translateY(-1px);border-color:rgba(56,189,248,.7);box-shadow:0 10px 26px rgba(0,0,0,.25)}
-    .btn.primary{border-color:rgba(56,189,248,.85);color:var(--accent)}
-    .btn.primary:hover{background:linear-gradient(90deg, rgba(56,189,248,.95), rgba(167,139,250,.92));color:#05070c;border-color:transparent}
-    .btn.ok{border-color:rgba(52,211,153,.75);color:var(--ok)}
-    .btn.warn{border-color:rgba(251,191,36,.75);color:var(--warn)}
-    .btn.bad{border-color:rgba(251,113,133,.75);color:var(--bad)}
-    .k{font-family:var(--mono);font-size:.74rem;color:#cbd5e1;border:1px solid var(--border);padding:4px 7px;border-radius:10px;background:rgba(2,6,23,.55)}
-    .hero{padding:18px 0 8px}
-    .grid2{display:grid;grid-template-columns: 1.1fr .9fr;gap:14px}
-    @media (max-width: 980px){.grid2{grid-template-columns:1fr}}
+
+    main{padding:24px 0 70px}
+
     .card{
-      border:1px solid var(--border);border-radius:var(--r2);
-      background:linear-gradient(135deg, rgba(11,18,32,.90), rgba(10,15,26,.60));
-      box-shadow:var(--shadow);padding:16px;
+      background:linear-gradient(135deg, rgba(11,18,32,.90), rgba(10,15,26,.65));
+      border:1px solid var(--border);
+      border-radius:var(--r);
+      box-shadow:var(--shadow);
+      padding:16px;
+      margin-bottom:18px;
     }
-    .card h2{margin:0 0 10px;font-size:1.03rem;letter-spacing:.04em}
+
+    h2{margin:0 0 10px;font-size:1.05rem;letter-spacing:.04em}
+    h3{margin:0;font-size:1rem}
     .muted{color:var(--muted)}
-    .tiny{font-size:.83rem;line-height:1.45}
-    .line{height:1px;background:linear-gradient(90deg, transparent, rgba(56,189,248,.22), rgba(167,139,250,.18), transparent);margin:12px 0}
-    .airTop{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start;justify-content:space-between}
-    .airStats{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-    .stat{border:1px solid var(--border);border-radius:14px;padding:7px 10px;background:rgba(2,6,23,.45);font-size:.82rem;color:#cbd5e1}
+    .tiny{font-size:.82rem;line-height:1.45}
+
+    .progress{
+      height:14px;border-radius:10px;
+      border:1px solid var(--border);
+      background:#050816;overflow:hidden;
+    }
+    .bar{
+      height:100%;width:0;
+      background:linear-gradient(90deg,var(--accent),var(--hot));
+      transition:width .3s ease;
+    }
+
+    .stats{display:flex;gap:10px;flex-wrap:wrap}
+    .stat{
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:7px 10px;
+      background:rgba(2,6,23,.45);
+      font-size:.82rem;
+      color:#cbd5e1;
+    }
     .stat b{color:#fff}
-    .progress{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#050816}
-    .bar{height:14px;width:0;background:linear-gradient(90deg, var(--accent), var(--hot));transition:width .35s ease}
-    .tabs{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-    .tab{
-      border:1px solid var(--border);border-radius:12px;padding:9px 11px;background:rgba(2,6,23,.35);
-      cursor:pointer;font-weight:900;letter-spacing:.03em;color:#cbd5e1;transition:.16s ease;user-select:none
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:14px;
     }
-    .tab:hover{border-color:rgba(56,189,248,.6)}
-    .tab.active{
-      background:linear-gradient(90deg, rgba(56,189,248,.95), rgba(167,139,250,.92));
-      color:#05070c;border-color:transparent;
-    }
-    .panel{display:none;margin-top:12px}
-    .panel.active{display:block}
-    .sectors{
-      display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:12px;margin-top:12px
-    }
+
     .sector{
-      border:1px solid var(--border);border-radius:18px;padding:14px;
-      background:linear-gradient(135deg, rgba(11,18,32,.86), rgba(10,15,26,.55));
-      display:flex;flex-direction:column;gap:10px;min-height:205px;
-      position:relative;overflow:hidden
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:14px;
+      background:linear-gradient(135deg, rgba(11,18,32,.88), rgba(10,15,26,.60));
+      display:flex;flex-direction:column;gap:10px;
+      min-height:200px;
     }
-    .sector:before{
-      content:"";position:absolute;inset:-40% -40% auto auto;width:220px;height:220px;border-radius:999px;
-      background:radial-gradient(circle at 30% 30%, rgba(56,189,248,.22), transparent 60%);
-      filter:blur(0px)
+
+    .tags{display:flex;gap:6px;flex-wrap:wrap}
+    .tag{
+      font-size:.72rem;padding:5px 8px;border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(2,6,23,.45);
+      color:#cbd5e1;
     }
-    .sector h3{margin:0;font-size:1.02rem;letter-spacing:.03em}
-    .sector .meta{font-size:.84rem;color:var(--muted);line-height:1.4}
-    .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-    .mini{
-      border:1px solid var(--border);border-radius:14px;padding:8px;background:rgba(2,6,23,.45);
-      font-size:.78rem;color:#cbd5e1
+
+    .btn{
+      margin-top:auto;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--accent);
+      color:var(--accent);
+      font-weight:800;
+      text-align:center;
+      background:rgba(2,6,23,.35);
+      transition:.16s ease;
     }
-    .mini b{color:#fff}
-    .sector .cta{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
-    .sector .cta .btn{width:100%;justify-content:center}
-    .sector .cta .btn.secondary{color:#cbd5e1}
-    .formGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    @media (max-width: 780px){.formGrid{grid-template-columns:1fr}}
-    label{display:block;font-size:.78rem;color:#cbd5e1;margin:0 0 6px}
-    input,textarea,select{
-      width:100%;border:1px solid var(--border);background:rgba(2,6,23,.35);
-      color:var(--ink);padding:10px 11px;border-radius:14px;outline:none;
-      font-family:var(--sans);font-size:.92rem
+    .btn:hover{
+      background:linear-gradient(90deg,var(--accent),var(--hot));
+      color:#05070c;border-color:transparent;
+      transform:translateY(-1px);
     }
-    textarea{min-height:112px;resize:vertical}
-    input:focus,textarea:focus,select:focus{border-color:rgba(56,189,248,.7);box-shadow:0 0 0 3px rgba(56,189,248,.12)}
-    .codebox{
-      border:1px solid var(--border);border-radius:18px;background:rgba(2,6,23,.50);padding:12px;
-      font-family:var(--mono);font-size:.80rem;color:#cbd5e1;white-space:pre-wrap;line-height:1.45
+
+    footer{
+      margin-top:40px;
+      text-align:center;
+      font-size:.8rem;
+      color:var(--muted);
+      line-height:1.5;
     }
-    .split{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    @media (max-width: 980px){.split{grid-template-columns:1fr}}
-    .iframeWrap{border:1px solid var(--border);border-radius:18px;overflow:hidden;background:#050816}
-    iframe{width:100%;height:520px;border:0}
-    .foot{
-      margin:18px 0 70px;text-align:center;color:var(--muted);font-size:.82rem;line-height:1.5
-    }
-    .toast{
-      position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
-      background:rgba(2,6,23,.85);border:1px solid var(--border);padding:10px 14px;border-radius:999px;
-      color:#e2e8f0;font-weight:900;letter-spacing:.02em;opacity:0;pointer-events:none;transition:.20s ease;
-      box-shadow:0 14px 40px rgba(0,0,0,.40);z-index:999
-    }
-    .toast.show{opacity:1;bottom:22px}
-    .modalBack{
-      position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);
-      display:none;place-items:center;z-index:9999;padding:18px
-    }
-    .modalBack.show{display:grid}
-    .modal{
-      width:min(980px,100%);border:1px solid var(--border);border-radius:24px;
-      background:linear-gradient(135deg, rgba(11,18,32,.96), rgba(10,15,26,.78));
-      box-shadow:0 25px 80px rgba(0,0,0,.55);padding:16px
-    }
-    .modalTop{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:10px}
-    .modalTop h3{margin:0;font-size:1.02rem;letter-spacing:.04em}
-    .cmdList{display:grid;gap:8px;margin-top:10px}
-    .cmdItem{
-      border:1px solid var(--border);border-radius:16px;padding:10px 12px;background:rgba(2,6,23,.35);
-      display:flex;justify-content:space-between;gap:10px;cursor:pointer
-    }
-    .cmdItem:hover{border-color:rgba(56,189,248,.6)}
-    .cmdItem b{letter-spacing:.03em}
-    .hint{color:var(--muted);font-size:.82rem;line-height:1.35}
-    .printOnly{display:none}
-    @media print{
-      body{background:#fff;color:#000}
-      .topbar,.hero,.foot,.toast,.modalBack{display:none !important}
-      .printOnly{display:block}
-      .card{box-shadow:none;background:#fff;border:1px solid #ddd}
-      .sector{background:#fff;border:1px solid #ddd}
-      .codebox{background:#fff;border:1px solid #ddd;color:#000}
-    }
+
+    iframe{width:100%;height:420px;border:0;border-radius:14px}
   </style>
 </head>
 
 <body>
-  <!-- COMMAND PALETTE -->
-  <div class="modalBack" id="cmdBack" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Command Console">
-      <div class="modalTop">
-        <h3>🜂 Command Console <span class="muted tiny">— quiet, fast actions</span></h3>
-        <button class="btn bad" id="cmdClose">Close <span class="k">Esc</span></button>
-      </div>
-      <div class="formGrid">
-        <div>
-          <label>Search command</label>
-          <input id="cmdSearch" placeholder="Type: export, import, print, email, duty, sector..." autocomplete="off" />
-        </div>
-        <div>
-          <label>Quick keys</label>
-          <div class="hint">
-            <span class="k">Ctrl</span> + <span class="k">K</span> open ·
-            <span class="k">Ctrl</span> + <span class="k">E</span> export ·
-            <span class="k">Ctrl</span> + <span class="k">I</span> import ·
-            <span class="k">Ctrl</span> + <span class="k">P</span> print
-          </div>
-        </div>
-      </div>
-      <div class="cmdList" id="cmdList"></div>
-    </div>
-  </div>
 
-  <div class="toast" id="toast">Saved.</div>
-
-  <!-- TOPBAR -->
-  <div class="topbar">
-    <div class="wrap">
-      <div class="row">
-        <div class="brand">
-          <div class="sig">DG</div>
-          <div class="stack">
-            <h1>THE DIABOLICAL GIFT · FLIGHTLINE HQ</h1>
-            <div class="sub">CDIA Alignment → Agency Support · 1,000-seat aircraft · “links with microchips” (paper + QR + mail)</div>
-          </div>
-        </div>
-
-        <div class="actions">
-          <button class="btn primary" id="openCmd">Command <span class="k">Ctrl K</span></button>
-          <button class="btn ok" id="saveBtn">Save</button>
-          <button class="btn" id="exportBtn">Export <span class="k">Ctrl E</span></button>
-          <button class="btn" id="importBtn">Import <span class="k">Ctrl I</span></button>
-          <button class="btn warn" id="printBtn">Print</button>
-        </div>
-      </div>
-
-      <div class="pillRow" style="padding-bottom:12px">
-        <div class="pill"><b>Voluntary</b> by design</div>
-        <div class="pill"><b>No authority</b> claimed</div>
-        <div class="pill"><b>Awareness</b> first</div>
-        <div class="pill"><b>Confirmation</b> next</div>
-        <div class="pill"><b>Education</b> by request</div>
-        <div class="pill">Contact: <b>taylor@theflightlinehq.com</b></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- HERO -->
-  <div class="hero">
-    <div class="wrap grid2">
-
-      <!-- AIRCRAFT + TABS -->
-      <section class="card" id="airCard">
-        <div class="airTop">
-          <div>
-            <h2>🛫 1,000-Seat Aircraft · Quiet Alignment Console</h2>
-            <div class="muted tiny">
-              This console boards stewards by sector into duty readiness—no coercion, no governance claims, only alignment capacity.
-            </div>
-          </div>
-          <div class="airStats">
-            <div class="stat"><b id="statSeats">1,000</b> seats</div>
-            <div class="stat"><b id="statFilled">0</b> filled</div>
-            <div class="stat"><b id="statPct">0%</b> aligned</div>
-            <div class="stat">Dominance: <b>600–900</b></div>
-          </div>
-        </div>
-
-        <div class="line"></div>
-
-        <div class="progress" title="Aircraft boarding progress">
-          <div class="bar" id="bar"></div>
-        </div>
-
-        <div class="line"></div>
-
-        <div class="tabs" role="tablist">
-          <div class="tab active" data-tab="t_sectors">Sectors</div>
-          <div class="tab" data-tab="t_duty">Duty Grid</div>
-          <div class="tab" data-tab="t_email">Email Forge</div>
-          <div class="tab" data-tab="t_ops">Ops & Secrets</div>
-        </div>
-
-        <!-- PANEL: SECTORS -->
-        <div class="panel active" id="t_sectors">
-          <div class="muted tiny">
-            Each sector is a button: <b>Enter Duty Grid</b> (map) + <b>Seat Control</b> (fill count) + <b>Recruit Message</b> (copy).
-          </div>
-
-          <div class="sectors" id="sectorGrid"></div>
-        </div>
-
-        <!-- PANEL: DUTY GRID -->
-        <div class="panel" id="t_duty">
-          <div class="split">
-            <div>
-              <div class="muted tiny">
-                The Duty Grid is the place of duty while on duty. This is the shared map surface.
-              </div>
-              <div class="line"></div>
-              <div class="formGrid">
-                <div>
-                  <label>Duty Grid Map URL</label>
-                  <input id="dutyUrl" />
-                </div>
-                <div>
-                  <label>Open in new tab</label>
-                  <button class="btn primary" id="openDuty">Enter Duty Grid</button>
-                </div>
-              </div>
-              <div class="line"></div>
-              <div class="muted tiny">
-                Optional next step later: assign each sector a filtered layer/view. For now, all sectors route to the same duty surface.
-              </div>
-            </div>
-            <div class="iframeWrap">
-              <iframe id="dutyFrame" title="Duty Grid"></iframe>
-            </div>
-          </div>
-        </div>
-
-        <!-- PANEL: EMAIL FORGE -->
-        <div class="panel" id="t_email">
-          <div class="muted tiny">
-            Generate CDIA Awareness → Confirmation → Agency Availability messages. Send links only on request.
-          </div>
-          <div class="line"></div>
-
-          <div class="split">
-            <div class="card" style="box-shadow:none;background:rgba(2,6,23,.25)">
-              <h2>✉️ Email Forge</h2>
-              <div class="formGrid">
-                <div>
-                  <label>Audience</label>
-                  <select id="emailAudience">
-                    <option value="citizen">Citizens / DREAMERS</option>
-                    <option value="educator">Educators</option>
-                    <option value="mayor">Mayors / City Leadership</option>
-                  </select>
-                </div>
-                <div>
-                  <label>Phase</label>
-                  <select id="emailPhase">
-                    <option value="awareness">CDIA Awareness (no links)</option>
-                    <option value="confirmation">Confirmation (no links)</option>
-                    <option value="agency">Agency Available (offer link only if asked)</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label>Sector (optional)</label>
-                  <select id="emailSector"></select>
-                </div>
-                <div>
-                  <label>Signature name</label>
-                  <input id="sigName" value="Keith Taylor" />
-                </div>
-
-                <div>
-                  <label>Contact email</label>
-                  <input id="sigEmail" value="taylor@theflightlinehq.com" />
-                </div>
-                <div>
-                  <label>Optional phone</label>
-                  <input id="sigPhone" placeholder="(optional)" />
-                </div>
-
-                <div>
-                  <label>Mayor Map Link (SEA.WEB grid)</label>
-                  <input id="mayorLink" />
-                </div>
-                <div>
-                  <label>Training Link (GI Curriculum)</label>
-                  <input id="trainLink" />
-                </div>
-              </div>
-
-              <div class="line"></div>
-              <div style="display:flex;gap:10px;flex-wrap:wrap">
-                <button class="btn primary" id="genEmail">Generate</button>
-                <button class="btn" id="copyEmail">Copy</button>
-                <button class="btn ok" id="mailtoBtn">Open Mail Draft</button>
-              </div>
-
-              <div class="line"></div>
-              <div class="hint">
-                Rule: for Awareness + Confirmation, links are not required. For Agency phase, offer “I can share” and send link only on yes.
-              </div>
-            </div>
-
-            <div class="card" style="box-shadow:none;background:rgba(2,6,23,.25)">
-              <h2>🧾 Output</h2>
-              <div class="codebox" id="emailOut">Generate an email to see output here.</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- PANEL: OPS & SECRETS -->
-        <div class="panel" id="t_ops">
-          <div class="split">
-            <div>
-              <h2>🜂 CDIA → Agency Transition Language</h2>
-              <div class="codebox" id="transitionOut"></div>
-              <div class="line"></div>
-
-              <h2>📦 Quiet Secrets (Operational)</h2>
-              <div class="codebox" id="secretsOut"></div>
-            </div>
-
-            <div>
-              <h2>🗓️ Rapid, Quiet Sector Cadence</h2>
-              <div class="muted tiny">
-                You asked for “overnight positioning”: this is achieved by calm repetition, not volume. Use 3 touches: Awareness → Confirmation → Agency.
-              </div>
-              <div class="line"></div>
-
-              <div class="formGrid">
-                <div>
-                  <label>Aircraft total seats</label>
-                  <input id="airSeats" type="number" min="1" />
-                </div>
-                <div>
-                  <label>Dominance range note</label>
-                  <input id="domNote" />
-                </div>
-              </div>
-
-              <div class="line"></div>
-              <div class="codebox" id="cadenceOut"></div>
-            </div>
-          </div>
-        </div>
-
-      </section>
-
-      <!-- RIGHT: CONTROL / CONFIG -->
-      <aside class="card">
-        <h2>⚙️ Control Layer (Local)</h2>
-        <div class="muted tiny">
-          This is your “walk away” tool: all settings and seat counts persist in this browser via local storage.
-        </div>
-
-        <div class="line"></div>
-
-        <div class="formGrid">
-          <div>
-            <label>Console Name</label>
-            <input id="consoleName" />
-          </div>
-          <div>
-            <label>Mode</label>
-            <select id="mode">
-              <option value="CDIA">CDIA (Awareness)</option>
-              <option value="CONFIRM">Confirmation</option>
-              <option value="AGENCY">Agency (Support)</option>
-            </select>
-          </div>
-
-          <div>
-            <label>“The D.R.” date</label>
-            <input id="drDate" />
-          </div>
-          <div>
-            <label>Tagline</label>
-            <input id="tagline" />
-          </div>
-
-          <div>
-            <label>QR / Link Hub (Hopkinsville)</label>
-            <input id="hubLink" />
-          </div>
-          <div>
-            <label>Print QR note</label>
-            <input id="qrNote" />
-          </div>
-        </div>
-
-        <div class="line"></div>
-
-        <h2>🧮 Seat Allocation</h2>
-        <div class="muted tiny">
-          Adjust targets and fill counts. The aircraft bar and totals update live.
-        </div>
-        <div class="line"></div>
-
-        <div id="seatTable"></div>
-
-        <div class="line"></div>
-
-        <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <button class="btn ok" id="autoSeed">Auto-seed (quiet demo)</button>
-          <button class="btn bad" id="resetAll">Reset</button>
-        </div>
-
-        <div class="line"></div>
-        <div class="hint">
-          Tip: Print mode produces clean duty sheets. Use your 8×11 QR deployments as “links with microchips” (paper + QR).
-        </div>
-      </aside>
-
-    </div>
-  </div>
-
+<header>
   <div class="wrap">
-    <div class="foot">
-      <b>CDIA</b> = Alignment Awareness (advisory only) · <b>Agency</b> = Voluntary support after confirmation · No authority claimed · Participation voluntary · Education by request · Contact: <b>taylor@theflightlinehq.com</b>
-      <div class="printOnly">
-        <h2>FlightLine Duty Sheet (Print)</h2>
-        <p>Scan QR / use hub link for voluntary onboarding. No authority claimed. Education by request.</p>
+    <div class="head">
+      <div class="brand">
+        <div class="sig">DG</div>
+        <div class="title">
+          <h1>THE DIABOLICAL GIFT · NETTOPIA IA</h1>
+          <div class="sub">CDIA Alignment → Agency Support · TOP (Trainer · Operator · Pilot)</div>
+        </div>
       </div>
     </div>
+
+    <div class="pillRow">
+      <div class="pill"><b>NETTOPIA IA</b> = Intelligence Assets</div>
+      <div class="pill"><b>TOP</b> = Trainer · Operator · Pilot</div>
+      <div class="pill"><b>Voluntary</b> by design</div>
+      <div class="pill"><b>No authority</b> claimed</div>
+      <div class="pill">Contact: <b>taylor@theflightlinehq.com</b></div>
+    </div>
   </div>
+</header>
 
-  <script>
-    /***************
-      FLIGHTLINE HQ — DIABOLICAL GIFT CONSOLE
-      One-file, GitHub Pages ready. LocalStorage-powered.
-    ****************/
+<main class="wrap">
 
-    // === CONSTANTS (YOUR LINKS) ===
-    const DEFAULTS = {
-      consoleName: "THE DIABOLICAL GIFT · FlightLine 1,000-Seat Console",
-      mode: "CDIA",
-      drDate: "January 2, 2026",
-      tagline: "Delivering links — with microchips. (Paper + QR + mail + hand-to-hand)",
-      hubLink: "https://linktr.ee/FlightLineofHopkinsvilleKY?utm_source=linktree_profile_share&ltsid=7beae9a9-dbf1-476d-abdc-06c07aa08259",
-      qrNote: "Optional. Observe, learn, or discard freely.",
-      dutyUrl: "https://www.google.com/maps/d/viewer?mid=1POvNXR-46CR7qju1OnWYkK80n5BFxwE&usp=sharing",
-      mayorLink: "https://www.google.com/maps/d/viewer?mid=1IkYcGhF3GuFwgGjruV-n3mX61Gm7XgA&usp=sharing",
-      trainLink: "https://taylor7617.github.io/FlightLine-GI-Curriculum/#drive",
-      airSeats: 1000,
-      domNote: "Quiet dominance range: 600–900 seats",
-      signature: { name: "Keith Taylor", email: "taylor@theflightlinehq.com", phone: "" },
-      // sectors: targets (min/max) + filled
-      sectors: [
-        { key:"educators", name:"Educators", role:"Digital educators · continuity translators · systems literacy guides", tmin:75, tmax:120, filled:0, vibe:["Awareness → Confirmation","Education by request"] },
-        { key:"veterans", name:"Veterans / Public Service", role:"Infrastructure stewards · coordination anchors · continuity operators", tmin:120, tmax:180, filled:0, vibe:["Terrain mindset","Continuity discipline"] },
-        { key:"smallbiz", name:"Small Business", role:"Digital frontage · visibility managers · access consultants", tmin:100, tmax:150, filled:0, vibe:["Visibility = frontage","Trust = continuity"] },
-        { key:"trades", name:"Trades & Labor", role:"Proof specialists · documentation stewards · trust builders", tmin:90, tmax:140, filled:0, vibe:["Proof","Work history","Location clarity"] },
-        { key:"health", name:"Health & Care", role:"Service continuity · access stabilizers · care visibility", tmin:60, tmax:100, filled:0, vibe:["Continuity","Access","Stability"] },
-        { key:"creative", name:"Creative & Media", role:"Cultural mapping · public narrative · signal amplification", tmin:70, tmax:120, filled:0, vibe:["Signal","Story","Visibility"] },
-        { key:"tech", name:"Tech / Admin", role:"Index maintenance · system interpretation · infrastructure clarity", tmin:50, tmax:80, filled:0, vibe:["Maintain","Normalize","Keep it current"] },
-        { key:"parents", name:"Parents & Households", role:"Household digital estates · family continuity stewards", tmin:100, tmax:150, filled:0, vibe:["Family continuity","Household estate"] },
-        { key:"students", name:"Students & Early Career", role:"Future-ready system literacy · next-gen navigators", tmin:80, tmax:120, filled:0, vibe:["Learn fast","Move early"] },
-      ],
-    };
+  <!-- STATUS -->
+  <section class="card">
+    <h2>NETTOPIA IA Status · 1,000-Seat Readiness Envelope</h2>
+    <div class="tiny muted">
+      Intelligence Assets are internal readiness markers — not currency, not points, not transferable.
+    </div>
 
-    const LS_KEY = "flightline_dg_console_v1";
-    const $ = (id)=>document.getElementById(id);
-    const toast = (msg="Saved.")=>{
-      const t=$("toast"); t.textContent=msg; t.classList.add("show");
-      setTimeout(()=>t.classList.remove("show"), 900);
-    };
+    <div style="margin:10px 0">
+      <div class="progress"><div class="bar" style="width:72%"></div></div>
+    </div>
 
-    const deepClone = (o)=>JSON.parse(JSON.stringify(o));
+    <div class="stats">
+      <div class="stat"><b>IA Envelope:</b> 1,000</div>
+      <div class="stat"><b>Aligned IA:</b> ~720</div>
+      <div class="stat"><b>TOP Dominance:</b> 600–900</div>
+      <div class="stat"><b>Mode:</b> CDIA → Agency</div>
+    </div>
+  </section>
 
-    const load = ()=>{
-      try{
-        const raw=localStorage.getItem(LS_KEY);
-        if(!raw) return deepClone(DEFAULTS);
-        const parsed=JSON.parse(raw);
-        // merge (defensive)
-        const cfg=deepClone(DEFAULTS);
-        Object.assign(cfg, parsed);
-        cfg.signature = Object.assign(deepClone(DEFAULTS.signature), parsed.signature||{});
-        // sectors merge by key
-        const byKey = Object.fromEntries((parsed.sectors||[]).map(s=>[s.key,s]));
-        cfg.sectors = cfg.sectors.map(s=>Object.assign({}, s, byKey[s.key]||{}));
-        return cfg;
-      }catch(e){ return deepClone(DEFAULTS); }
-    };
+  <!-- SECTORS -->
+  <section class="card">
+    <h2>TOP Sector Alignment</h2>
+    <div class="grid">
 
-    const save = (cfg)=>{
-      localStorage.setItem(LS_KEY, JSON.stringify(cfg));
-      toast("Saved.");
-    };
+      <div class="sector">
+        <h3>Educators</h3>
+        <div class="muted tiny">Digital educators · continuity translators · systems literacy guides</div>
+        <div class="tags">
+          <span class="tag">Trainer</span><span class="tag">TOP</span>
+        </div>
+        <a class="btn" href="https://www.google.com/maps/d/viewer?mid=1POvNXR-46CR7qju1OnWYkK80n5BFxwE" target="_blank">Enter Duty Grid</a>
+      </div>
 
-    let CFG = load();
+      <div class="sector">
+        <h3>Veterans / Public Service</h3>
+        <div class="muted tiny">Infrastructure stewards · coordination anchors · continuity operators</div>
+        <div class="tags">
+          <span class="tag">Operator</span><span class="tag">TOP</span>
+        </div>
+        <a class="btn" href="https://www.google.com/maps/d/viewer?mid=1POvNXR-46CR7qju1OnWYkK80n5BFxwE" target="_blank">Enter Duty Grid</a>
+      </div>
 
-    // === UI: tabs ===
-    document.querySelectorAll(".tab").forEach(t=>{
-      t.addEventListener("click", ()=>{
-        document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
-        document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));
-        t.classList.add("active");
-        $(t.dataset.tab).classList.add("active");
-      });
-    });
+      <div class="sector">
+        <h3>Small Business</h3>
+        <div class="muted tiny">Digital frontage · visibility managers · access consultants</div>
+        <div class="tags">
+          <span class="tag">Operator</span><span class="tag">TOP</span>
+        </div>
+        <a class="btn" href="https://www.google.com/maps/d/viewer?mid=1POvNXR-46CR7qju1OnWYkK80n5BFxwE" target="_blank">Enter Duty Grid</a>
+      </div>
 
-    // === Command palette ===
-    const cmdBack=$("cmdBack"), cmdSearch=$("cmdSearch"), cmdList=$("cmdList");
-    const openCmd=()=>{
-      cmdBack.classList.add("show");
-      cmdBack.setAttribute("aria-hidden","false");
-      cmdSearch.value=""; renderCmd(); setTimeout(()=>cmdSearch.focus(), 0);
-    };
-    const closeCmd=()=>{
-      cmdBack.classList.remove("show");
-      cmdBack.setAttribute("aria-hidden","true");
-    };
-    $("openCmd").addEventListener("click", openCmd);
-    $("cmdClose").addEventListener("click", closeCmd);
-    cmdBack.addEventListener("click",(e)=>{ if(e.target===cmdBack) closeCmd(); });
-    window.addEventListener("keydown",(e)=>{
-      if(e.key==="Escape") closeCmd();
-      if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==="k"){ e.preventDefault(); openCmd(); }
-      if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==="e"){ e.preventDefault(); doExport(); }
-      if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==="i"){ e.preventDefault(); doImport(); }
-      if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==="p"){ /* allow browser print */ }
-    });
+      <div class="sector">
+        <h3>Trades & Labor</h3>
+        <div class="muted tiny">Proof specialists · documentation stewards · trust builders</div>
+        <div class="tags">
+          <span class="tag">Operator</span><span class="tag">TOP</span>
+        </div>
+        <a class="btn" href="https://www.google.com/maps/d/viewer?mid=1POvNXR-46CR7qju1OnWYkK80n5BFxwE" target="_blank">Enter Duty Grid</a>
+      </div>
 
-    const COMMANDS = [
-      { name:"Open Duty Grid", hint:"Open map in new tab", run:()=>window.open(CFG.dutyUrl,"_blank") },
-      { name:"Export Console JSON", hint:"Copy JSON to clipboard", run:()=>doExport() },
-      { name:"Import Console JSON", hint:"Paste JSON to load", run:()=>doImport() },
-      { name:"Print Duty Sheets", hint:"Print this page cleanly", run:()=>window.print() },
-      { name:"Go to Sectors", hint:"Jump to sectors tab", run:()=>activateTab("t_sectors") },
-      { name:"Go to Duty Grid", hint:"Jump to duty tab", run:()=>activateTab("t_duty") },
-      { name:"Go to Email Forge", hint:"Jump to email tab", run:()=>activateTab("t_email") },
-      { name:"Reset (Danger)", hint:"Reset counts + settings to defaults", run:()=>resetAll() },
-    ];
+      <div class="sector">
+        <h3>Creative & Media</h3>
+        <div class="muted tiny">Cultural mapping · public narrative · signal amplification</div>
+        <div class="tags">
+          <span class="tag">Pilot</span><span class="tag">TOP</span>
+        </div>
+        <a class="btn" href="https://www.google.com/maps/d/viewer?mid=1POvNXR-46CR7qju1OnWYkK80n5BFxwE" target="_blank">Enter Duty Grid</a>
+      </div>
 
-    const activateTab=(id)=>{
-      const tab=[...document.querySelectorAll(".tab")].find(x=>x.dataset.tab===id);
-      if(tab) tab.click();
-      closeCmd();
-    };
+    </div>
+  </section>
 
-    const renderCmd=()=>{
-      const q=(cmdSearch.value||"").trim().toLowerCase();
-      cmdList.innerHTML="";
-      COMMANDS
-        .filter(c=>!q || (c.name+" "+c.hint).toLowerCase().includes(q))
-        .forEach(c=>{
-          const el=document.createElement("div");
-          el.className="cmdItem";
-          el.innerHTML=`<div><b>${c.name}</b><div class="hint">${c.hint}</div></div><div class="k">Enter</div>`;
-          el.addEventListener("click", ()=>{ c.run(); closeCmd(); });
-          cmdList.appendChild(el);
-        });
-    };
-    cmdSearch.addEventListener("input", renderCmd);
-    cmdSearch.addEventListener("keydown",(e)=>{
-      if(e.key==="Enter"){
-        const first=cmdList.querySelector(".cmdItem");
-        if(first) first.click();
-      }
-    });
+  <!-- DUTY -->
+  <section class="card">
+    <h2>Duty Grid (Place of Duty While on Duty)</h2>
+    <div class="tiny muted">
+      The Duty Grid is a public, lawful, observable map surface. No access required.
+    </div>
+    <iframe src="https://www.google.com/maps/d/viewer?mid=1POvNXR-46CR7qju1OnWYkK80n5BFxwE"></iframe>
+  </section>
 
-    // === Calculations ===
-    const totals = ()=>{
-      const filled = CFG.sectors.reduce((a,s)=>a+(+s.filled||0),0);
-      const seats = +CFG.airSeats||1000;
-      const pct = Math.max(0, Math.min(100, Math.round((filled/seats)*100)));
-      return { filled, seats, pct };
-    };
+</main>
 
-    const updateAircraft = ()=>{
-      const t = totals();
-      $("statSeats").textContent = t.seats.toLocaleString();
-      $("statFilled").textContent = t.filled.toLocaleString();
-      $("statPct").textContent = t.pct + "%";
-      $("bar").style.width = t.pct + "%";
-      $("airSeats").value = t.seats;
-      $("domNote").value = CFG.domNote || DEFAULTS.domNote;
-    };
+<footer>
+  NETTOPIA IA (Intelligence Assets) · TOP = Trainer · Operator · Pilot  
+  <br/>
+  CDIA = Alignment Awareness · Agency = Voluntary Support  
+  <br/>
+  Contact: <b>taylor@theflightlinehq.com</b>
+</footer>
 
-    // === Render sectors cards (buttons) ===
-    const renderSectorCards = ()=>{
-      const grid=$("sectorGrid"); grid.innerHTML="";
-      CFG.sectors.forEach(s=>{
-        const el=document.createElement("div");
-        el.className="sector";
-        const vibes=(s.vibe||[]).map(v=>`<span class="pill">${v}</span>`).join("");
-        const t = totals();
-        const pct = t.seats? Math.round(((+s.filled||0)/t.seats)*1000)/10 : 0;
-
-        el.innerHTML = `
-          <h3>${s.name}</h3>
-          <div class="meta">${s.role}</div>
-          <div class="pillRow">${vibes}</div>
-          <div class="row3">
-            <div class="mini"><b>Target</b><br/>${s.tmin}–${s.tmax}</div>
-            <div class="mini"><b>Filled</b><br/><span id="f_${s.key}">${(+s.filled||0)}</span></div>
-            <div class="mini"><b>Aircraft %</b><br/>${pct}%</div>
-          </div>
-          <div class="cta">
-            <button class="btn primary" data-open="${s.key}">Enter Duty Grid</button>
-            <button class="btn secondary" data-msg="${s.key}">Copy Recruit Message</button>
-            <button class="btn ok" data-plus="${s.key}">+1 Seat</button>
-            <button class="btn warn" data-minus="${s.key}">-1 Seat</button>
-          </div>
-        `;
-        grid.appendChild(el);
-      });
-
-      // actions
-      grid.querySelectorAll("[data-open]").forEach(b=>{
-        b.addEventListener("click", ()=>window.open(CFG.dutyUrl,"_blank"));
-      });
-      grid.querySelectorAll("[data-plus]").forEach(b=>{
-        b.addEventListener("click", ()=>{
-          const key=b.dataset.plus;
-          const s=CFG.sectors.find(x=>x.key===key);
-          s.filled = Math.max(0,(+s.filled||0)+1);
-          syncAll(true);
-        });
-      });
-      grid.querySelectorAll("[data-minus]").forEach(b=>{
-        b.addEventListener("click", ()=>{
-          const key=b.dataset.minus;
-          const s=CFG.sectors.find(x=>x.key===key);
-          s.filled = Math.max(0,(+s.filled||0)-1);
-          syncAll(true);
-        });
-      });
-      grid.querySelectorAll("[data-msg]").forEach(b=>{
-        b.addEventListener("click", ()=>{
-          const key=b.dataset.msg;
-          const s=CFG.sectors.find(x=>x.key===key);
-          const msg = buildSectorRecruitMsg(s);
-          copyText(msg);
-          toast("Recruit message copied.");
-        });
-      });
-    };
-
-    // === Seat control table (right panel) ===
-    const renderSeatTable = ()=>{
-      const host=$("seatTable"); host.innerHTML="";
-      CFG.sectors.forEach(s=>{
-        const row=document.createElement("div");
-        row.style.cssText="border:1px solid var(--border);border-radius:18px;padding:12px;margin-bottom:10px;background:rgba(2,6,23,.35)";
-        row.innerHTML=`
-          <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start">
-            <div>
-              <div style="font-weight:1000;letter-spacing:.03em">${s.name}</div>
-              <div class="muted tiny">${s.role}</div>
-            </div>
-            <div class="k">${s.key}</div>
-          </div>
-          <div class="line"></div>
-          <div class="formGrid">
-            <div>
-              <label>Target min</label>
-              <input type="number" min="0" value="${s.tmin}" data-k="tmin" data-s="${s.key}">
-            </div>
-            <div>
-              <label>Target max</label>
-              <input type="number" min="0" value="${s.tmax}" data-k="tmax" data-s="${s.key}">
-            </div>
-            <div>
-              <label>Filled</label>
-              <input type="number" min="0" value="${s.filled}" data-k="filled" data-s="${s.key}">
-            </div>
-            <div>
-              <label>Quick</label>
-              <div style="display:flex;gap:8px">
-                <button class="btn ok" data-q="plus" data-s="${s.key}" style="flex:1;justify-content:center">+10</button>
-                <button class="btn warn" data-q="minus" data-s="${s.key}" style="flex:1;justify-content:center">-10</button>
-              </div>
-            </div>
-          </div>
-        `;
-        host.appendChild(row);
-      });
-
-      host.querySelectorAll("input[data-s]").forEach(inp=>{
-        inp.addEventListener("input", ()=>{
-          const key=inp.dataset.s, prop=inp.dataset.k;
-          const s=CFG.sectors.find(x=>x.key===key);
-          s[prop]=Math.max(0, +inp.value||0);
-          syncAll(false);
-        });
-      });
-      host.querySelectorAll("button[data-q]").forEach(btn=>{
-        btn.addEventListener("click", ()=>{
-          const key=btn.dataset.s, q=btn.dataset.q;
-          const s=CFG.sectors.find(x=>x.key===key);
-          const delta = q==="plus"? 10 : -10;
-          s.filled = Math.max(0, (+s.filled||0)+delta);
-          syncAll(true);
-        });
-      });
-    };
-
-    // === Ops outputs ===
-    const buildTransition = ()=>{
-      return [
-        "CDIA → AGENCY (Transition Language)",
-        "",
-        "CDIA exists to maintain awareness and alignment of public digital infrastructure.",
-        "When individuals voluntarily request education or assistance beyond awareness, support is carried out by an independent service body referred to as the Agency.",
-        "",
-        "The Agency does not govern, regulate, mandate, or claim authority.",
-        "It supports education, documentation, and alignment tasks requested by participants.",
-        "",
-        "CDIA advises. The Agency assists. Participation remains voluntary at every stage.",
-        "",
-        "One-line:",
-        "CDIA provides alignment awareness; the Agency exists only to support those who voluntarily request education or assistance."
-      ].join("\n");
-    };
-
-    const buildSecrets = ()=>{
-      return [
-        "QUIET SECRETS (Operational Notes)",
-        "",
-        "1) Quiet wins: No hype, no pressure, no mass CC. Individual respect is infrastructure.",
-        "2) Awareness first: send CDIA awareness without links. Let curiosity pull the next step.",
-        "3) Confirmation second: answer 'what is this?' without asking for anything.",
-        "4) Agency last: offer help only to volunteers; send training link only on YES.",
-        "5) Paper beats email in trust: deploy 8×11 QR sheets. 'Links with microchips' = paper + QR.",
-        "6) Capacity > persuasion: seat counts show readiness; readiness attracts authority without conflict.",
-        "7) Never claim government status. Never imply mandates. Always use 'public, lawful, voluntary.'",
-        "8) Scale by sectors: a few hundred aligned across sectors dominates the signal quietly."
-      ].join("\n");
-    };
-
-    const buildCadence = ()=>{
-      return [
-        "QUIET CADENCE (Mon–Fri rhythm)",
-        "",
-        "Touch 1: CDIA Awareness (no links).",
-        "Touch 2: Confirmation (answer questions; still no links unless asked).",
-        "Touch 3: Agency Available (offer support; send training only on YES).",
-        "",
-        "Sector sequencing (quiet): Educators + Veterans → Small Business + Trades → Health + Creative + Tech → Parents + Students.",
-        "",
-        CFG.domNote || DEFAULTS.domNote
-      ].join("\n");
-    };
-
-    // === Email forge ===
-    const buildSubject = (aud, phase, sectorName)=>{
-      const dr = CFG.drDate || DEFAULTS.drDate;
-      const base = {
-        citizen: {
-          awareness: `CDIA Awareness — The D.R. approaches (${dr})`,
-          confirmation: `Re: CDIA Awareness (clarity, no action required)`,
-          agency: `Voluntary Support Available — Agency (Education by request)`
-        },
-        educator: {
-          awareness: `Educator Awareness — CDIA Alignment (no action required)`,
-          confirmation: `Re: Educator CDIA Awareness (clarification)`,
-          agency: `Educator Support Available — Agency (by request)`
-        },
-        mayor: {
-          awareness: `Public Civic Infrastructure Index — Observation Access`,
-          confirmation: `Re: Civic Infrastructure Index (clarification)`,
-          agency: `Voluntary Civic Support Available — CDIA → Agency`
-        }
-      }[aud][phase];
-      return sectorName ? `${base} · ${sectorName}` : base;
-    };
-
-    const buildEmail = ()=>{
-      const aud = $("emailAudience").value;
-      const phase = $("emailPhase").value;
-      const sectorKey = $("emailSector").value;
-      const s = CFG.sectors.find(x=>x.key===sectorKey);
-      const sectorName = sectorKey==="all" ? "" : (s?s.name:"");
-      const subj = buildSubject(aud, phase, sectorName);
-
-      const sigName = $("sigName").value.trim() || CFG.signature.name;
-      const sigEmail = $("sigEmail").value.trim() || CFG.signature.email;
-      const sigPhone = $("sigPhone").value.trim();
-      const contactLine = sigPhone ? `${sigEmail} | ${sigPhone}` : sigEmail;
-
-      const mayorLink = $("mayorLink").value.trim() || CFG.mayorLink;
-      const trainLink = $("trainLink").value.trim() || CFG.trainLink;
-
-      const commonFooter = [
-        "",
-        "Respectfully,",
-        sigName,
-        "Civic Digital Infrastructure Advisor (CDIA)",
-        contactLine
-      ].join("\n");
-
-      const noLinks = "No response is required.";
-
-      if(aud==="mayor"){
-        if(phase==="awareness"){
-          return [
-            `Subject: ${subj}`,
-            "",
-            "Hello Mayor / City Leadership Team,",
-            "",
-            "This note is shared for observation only.",
-            "",
-            "A public, independent effort is underway focused on Civic Digital Infrastructure Alignment (CDIA).",
-            "CDIA documents only publicly visible, lawful, verifiable information and claims no authority.",
-            "",
-            "The purpose is simple:",
-            "- Improve civic visibility",
-            "- Preserve continuity",
-            "- Support education-first readiness",
-            "",
-            "Public map (observation access):",
-            mayorLink,
-            "",
-            noLinks,
-            commonFooter
-          ].join("\n");
-        }
-        if(phase==="confirmation"){
-          return [
-            `Subject: ${subj}`,
-            "",
-            "Hello,",
-            "",
-            "Clarifying the boundary:",
-            "CDIA is advisory alignment only. It does not govern, regulate, or replace any city system.",
-            "",
-            "If useful, I can explain what the map represents and what it intentionally excludes.",
-            "",
-            noLinks,
-            commonFooter
-          ].join("\n");
-        }
-        // agency
-        return [
-          `Subject: ${subj}`,
-          "",
-          "Hello,",
-          "",
-          "If your team ever requests voluntary education or assistance beyond observation, an independent service body (“the Agency”) is available to support participants.",
-          "The Agency does not govern. It assists only by request.",
-          "",
-          "If you would like public reference material, I can share it.",
-          "",
-          commonFooter
-        ].join("\n");
-      }
-
-      if(aud==="educator"){
-        if(phase==="awareness"){
-          return [
-            `Subject: ${subj}`,
-            "",
-            "Hello,",
-            "",
-            "This note is shared for awareness only.",
-            "",
-            "A voluntary, education-first effort is underway focused on Civic Digital Infrastructure Alignment (CDIA).",
-            "CDIA helps keep public digital civic information accurate, visible, and well-positioned over time.",
-            "",
-            "This is not a mandate, not an adoption request, and requires no reporting.",
-            "",
-            noLinks,
-            commonFooter
-          ].join("\n");
-        }
-        if(phase==="confirmation"){
-          return [
-            `Subject: ${subj}`,
-            "",
-            "Hello,",
-            "",
-            "If you’re wondering what happens after awareness:",
-            "CDIA remains advisory only. Education is offered only if requested, and delivered through an independent Agency.",
-            "",
-            "If you want the public curriculum link, reply “YES” and I’ll share it.",
-            "",
-            commonFooter
-          ].join("\n");
-        }
-        return [
-          `Subject: ${subj}`,
-          "",
-          "Hello,",
-          "",
-          "Per request, an independent Agency is available to support educators who want public, voluntary learning resources.",
-          "",
-          "If you still want the training link, reply “YES” and I’ll send it.",
-          "",
-          commonFooter
-        ].join("\n");
-      }
-
-      // citizen / dreamers
-      const dr = CFG.drDate || DEFAULTS.drDate;
-      const dreamerLine = "Digital Real Estate Agent & Mission-Driven Economic Recruiters (DREAMERS)";
-      const sectorLine = sectorName ? `Sector focus: ${sectorName}` : "Sector focus: all (voluntary).";
-
-      if(phase==="awareness"){
-        return [
-          `Subject: ${subj}`,
-          "",
-          "Hello,",
-          "",
-          "A major shift is already underway — not announced, not mandated, just happening.",
-          "",
-          `On ${dr}, a voluntary civilian transition begins:`,
-          "THE D.R. — THE DIGITAL RECONQUISTA",
-          "",
-          "This is not a job fair.",
-          "This is not a tech takeover.",
-          "This is a skills realignment for a world that already moved.",
-          "",
-          `The overlay role is: ${dreamerLine}`,
-          sectorLine,
-          "",
-          "CDIA stage: awareness only.",
-          "If you want public training material, reply “YES” and I’ll send the link.",
-          "",
-          commonFooter
-        ].join("\n");
-      }
-      if(phase==="confirmation"){
-        return [
-          `Subject: ${subj}`,
-          "",
-          "Hello,",
-          "",
-          "Clarifying the boundary:",
-          "CDIA is alignment awareness only. No authority is claimed. Participation is voluntary.",
-          "",
-          "If you want the public training link, reply “YES” and I’ll send it.",
-          "",
-          commonFooter
-        ].join("\n");
-      }
-      return [
-        `Subject: ${subj}`,
-        "",
-        "Hello,",
-        "",
-        "Agency note:",
-        "If you voluntarily want education or assistance with digital real estate stewardship, an independent Agency is available to support you by request.",
-        "",
-        "If you want the public training link, reply “YES” and I’ll send it.",
-        "",
-        commonFooter
-      ].join("\n");
-    };
-
-    const buildSectorRecruitMsg = (s)=>{
-      const dr = CFG.drDate || DEFAULTS.drDate;
-      return [
-        `THE D.R. — THE DIGITAL RECONQUISTA (${dr})`,
-        `Sector: ${s.name}`,
-        "",
-        "CDIA stage: awareness only (no mandate, no authority claimed).",
-        "",
-        "You do not need a tech background. You do not need to change careers.",
-        "Digital real estate is simply how:",
-        "- locations show up",
-        "- work is discovered",
-        "- continuity is maintained",
-        "- opportunity moves",
-        "",
-        `Role: DREAMERS (Digital Real Estate Agents & Mission-Driven Economic Recruiters)`,
-        `Your fit here: ${s.role}`,
-        "",
-        "If you want the public training link, reply “YES” and it will be sent.",
-        "",
-        `Contact: ${CFG.signature.email}`
-      ].join("\n");
-    };
-
-    const copyText = async (txt)=>{
-      try{ await navigator.clipboard.writeText(txt); }
-      catch(e){
-        const ta=document.createElement("textarea");
-        ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); ta.remove();
-      }
-    };
-
-    // === Export / Import ===
-    const doExport = async ()=>{
-      const txt = JSON.stringify(CFG, null, 2);
-      await copyText(txt);
-      toast("Export JSON copied.");
-    };
-
-    const doImport = async ()=>{
-      const raw = prompt("Paste console JSON here:");
-      if(!raw) return;
-      try{
-        const parsed=JSON.parse(raw);
-        localStorage.setItem(LS_KEY, JSON.stringify(parsed));
-        CFG = load();
-        hydrate();
-        toast("Imported.");
-      }catch(e){
-        alert("Invalid JSON.");
-      }
-    };
-
-    // === reset / seed ===
-    const resetAll = ()=>{
-      if(!confirm("Reset console to defaults?")) return;
-      localStorage.removeItem(LS_KEY);
-      CFG = load();
-      hydrate();
-      toast("Reset.");
-    };
-
-    const seedDemo = ()=>{
-      // Quiet demo: fill within target mins, with slight randomness, stays under 900.
-      const seats = +CFG.airSeats||1000;
-      let total=0;
-      CFG.sectors.forEach(s=>{
-        const min = +s.tmin||0, max = +s.tmax||0;
-        const base = Math.round(min + (max-min)*0.45);
-        s.filled = base;
-        total += base;
-      });
-      // cap to 880ish
-      if(total>880){
-        const factor = 880/total;
-        CFG.sectors.forEach(s=>s.filled=Math.max(0, Math.round((+s.filled||0)*factor)));
-      }
-      syncAll(true);
-      toast("Auto-seeded.");
-    };
-
-    // === Sync all ===
-    const syncAll = (persist)=>{
-      // apply right panel values
-      CFG.consoleName = $("consoleName").value;
-      CFG.mode = $("mode").value;
-      CFG.drDate = $("drDate").value;
-      CFG.tagline = $("tagline").value;
-      CFG.hubLink = $("hubLink").value;
-      CFG.qrNote = $("qrNote").value;
-      CFG.dutyUrl = $("dutyUrl").value;
-      CFG.mayorLink = $("mayorLink").value;
-      CFG.trainLink = $("trainLink").value;
-      CFG.airSeats = Math.max(1, +$("airSeats").value||1000);
-      CFG.domNote = $("domNote").value;
-
-      CFG.signature.name = $("sigName").value || CFG.signature.name;
-      CFG.signature.email = $("sigEmail").value || CFG.signature.email;
-      CFG.signature.phone = $("sigPhone").value || "";
-
-      // update iframe
-      $("dutyFrame").src = CFG.dutyUrl;
-
-      // outputs
-      $("transitionOut").textContent = buildTransition();
-      $("secretsOut").textContent = buildSecrets();
-      $("cadenceOut").textContent = buildCadence();
-
-      // stats
-      updateAircraft();
-
-      // update sector email dropdown
-      renderEmailSectorOptions();
-
-      // rerender tiles + table
-      renderSectorCards();
-      renderSeatTable();
-
-      if(persist) save(CFG);
-    };
-
-    const hydrate = ()=>{
-      $("consoleName").value = CFG.consoleName;
-      $("mode").value = CFG.mode;
-      $("drDate").value = CFG.drDate;
-      $("tagline").value = CFG.tagline;
-      $("hubLink").value = CFG.hubLink;
-      $("qrNote").value = CFG.qrNote;
-
-      $("dutyUrl").value = CFG.dutyUrl;
-      $("mayorLink").value = CFG.mayorLink;
-      $("trainLink").value = CFG.trainLink;
-
-      $("airSeats").value = CFG.airSeats;
-      $("domNote").value = CFG.domNote;
-
-      $("sigName").value = CFG.signature.name;
-      $("sigEmail").value = CFG.signature.email;
-      $("sigPhone").value = CFG.signature.phone || "";
-
-      $("dutyFrame").src = CFG.dutyUrl;
-
-      $("transitionOut").textContent = buildTransition();
-      $("secretsOut").textContent = buildSecrets();
-      $("cadenceOut").textContent = buildCadence();
-
-      renderEmailSectorOptions();
-      renderSectorCards();
-      renderSeatTable();
-      updateAircraft();
-    };
-
-    const renderEmailSectorOptions = ()=>{
-      const sel=$("emailSector");
-      const current=sel.value;
-      sel.innerHTML = `<option value="all">All Sectors</option>` + CFG.sectors.map(s=>`<option value="${s.key}">${s.name}</option>`).join("");
-      if([...sel.options].some(o=>o.value===current)) sel.value=current;
-    };
-
-    // === Buttons ===
-    $("saveBtn").addEventListener("click", ()=>{ syncAll(true); });
-    $("exportBtn").addEventListener("click", doExport);
-    $("importBtn").addEventListener("click", doImport);
-    $("printBtn").addEventListener("click", ()=>window.print());
-    $("resetAll").addEventListener("click", resetAll);
-    $("autoSeed").addEventListener("click", seedDemo);
-
-    $("openDuty").addEventListener("click", ()=>window.open(CFG.dutyUrl,"_blank"));
-
-    $("genEmail").addEventListener("click", ()=>{
-      syncAll(false);
-      const out=buildEmail();
-      $("emailOut").textContent = out;
-      toast("Email generated.");
-    });
-    $("copyEmail").addEventListener("click", async ()=>{
-      const t=$("emailOut").textContent;
-      await copyText(t);
-      toast("Email copied.");
-    });
-
-    $("mailtoBtn").addEventListener("click", ()=>{
-      const t=$("emailOut").textContent;
-      // parse subject/body from output if present
-      const lines=t.split("\n");
-      let subject=""; let body=t;
-      if(lines[0].toLowerCase().startsWith("subject:")){
-        subject=lines[0].slice(8).trim();
-        body=lines.slice(2).join("\n");
-      }
-      const url=`mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      window.location.href=url;
-    });
-
-    // === Live-sync on inputs (quiet) ===
-    ["consoleName","mode","drDate","tagline","hubLink","qrNote","dutyUrl","mayorLink","trainLink","airSeats","domNote","sigName","sigEmail","sigPhone"]
-      .forEach(id=>{
-        $(id).addEventListener("change", ()=>syncAll(true));
-      });
-
-    // === Init ===
-    hydrate();
-    syncAll(false);
-
-    // === Safety: ensure a save happens on unload if changed (light) ===
-    window.addEventListener("beforeunload", ()=>{ try{ save(CFG); }catch(e){} });
-
-    // === Extra: global helpers in command list ===
-    function resetAll(){ return window.__resetAll ? window.__resetAll() : null; }
-    window.__resetAll = resetAll;
-  </script>
 </body>
 </html>
+
