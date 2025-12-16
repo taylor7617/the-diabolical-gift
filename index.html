@@ -1,1 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>FlightLine · 1,000-Seat On-Boarding Console</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --panel: #111827;
+      --ink: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #38bdf8;
+      --border: #1f2937;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    header {
+      padding: 32px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      letter-spacing: 0.04em;
+    }
+
+    .sub {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    main {
+      padding: 24px 20px 60px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .aircraft {
+      background: linear-gradient(135deg, #020617, #020b1a);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 28px;
+    }
+
+    .aircraft h2 {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+    }
+
+    .progress {
+      background: #020617;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .progress-bar {
+      height: 14px;
+      background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+      width: 72%;
+    }
+
+    .progress-text {
+      margin-top: 6px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-top: 26px;
+    }
+
+    .sector {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .sector h3 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .sector .meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .seat {
+      font-size: 0.85rem;
+      color: #a5f3fc;
+    }
+
+    .sector a {
+      margin-top: auto;
+      text-decoration: none;
+      text-align: center;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .sector a:hover {
+      background: var(--accent);
+      color: #020617;
+    }
+
+    footer {
+      margin-top: 60px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.8rem;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>🛫 FlightLine · 1,000-Seat Civic Aircraft</h1>
+  <div class="sub">
+    Voluntary Alignment Console · CDIA Awareness → Agency Support
+  </div>
+</header>
+
+<main>
+
+  <!-- AIRCRAFT STATUS -->
+  <section class="aircraft">
+    <h2>Aircraft Status</h2>
+    <div class="progress">
+      <div class="progress-bar"></div>
+    </div>
+    <div class="progress-text">
+      ~720 of 1,000 seats softly aligned · No mandates · No authority claimed
+    </div>
+  </section>
+
+  <!-- SECTOR GRID -->
+  <section class="grid">
+
+    <!-- EDUCATORS -->
+    <div class="sector">
+      <h3>Educators</h3>
+      <div class="meta">
+        Digital educators · continuity translators · system literacy guides
+      </div>
+      <div class="seat">Target: 75–120 seats</div>
+      <a href="https://www.google.com/maps/d/viewer?mid=1POvNXR-46CR7qju1OnWYkK80n5BFxwE" target="_blank">
+        Enter Duty Grid
+      </a>
+    </div>
+
+    <!-- VETERANS -->
+    <div class="sector">
+      <h3>Veterans / Public Service</h3>
+      <div class="meta">
+        Infrastructure stewards · coordination anchors · continuity operators
+      </div>
+      <div class="seat">Target: 120–180 seats</div>
+      <a href="https://www.google.com/maps/d/viewer?mid=1POvNXR-46CR7qju1OnWYkK80n5BFxwE" target="_blank">
+        Enter Duty Grid
+      </a>
+    </div>
+
+    <!-- SMALL BUSINESS -->
+    <div class="sector">
+      <h3>Small Business</h3>
+      <div class="meta">
+        Digital frontage · visibility managers · access consultants
+      </div>
+      <div class="seat">Target: 100–150 seats</div>
+      <a href="https://www.google.com/maps/d/viewer?mid=1POvNXR-46CR7qju1OnWYkK80n5BFxwE" target="_blank">
+        Enter Duty Grid
+      </a>
+    </div>
+
+    <!-- TRADES -->
+    <div class="sector">
+      <h3>Trades & Labor</h3>
+      <div class="meta">
+        Proof specialists · documentation stewards · trust builders
+      </div>
+      <div class="seat">Target: 90–140 seats</div>
+      <a href="https://www.google.com/maps/d/viewer?mid=1POvNXR-46CR7qju1OnWYkK80n5BFxwE" target="_blank">
+        Enter Duty Grid
+      </a>
+    </div>
+
+    <!-- HEALTH -->
+    <div class="sector">
+      <h3>Health & Care</h3>
+      <div class="meta">
+        Service continuity · access stabilizers · care visibility
+      </div>
+      <div class="seat">Target: 60–100 seats</div>
+      <a href="https://www.google.com/maps/d/viewer?mid=1POvNXR-46CR7qju1OnWYkK80n5BFxwE" target="_blank">
+        Enter Duty Grid
+      </a>
+    </div>
+
+    <!-- CREATIVE -->
+    <div class="sector">
+      <h3>Creative & Media</h3>
+      <div class="meta">
+        Cultural mapping · public narrative · signal amplification
+      </div>
+      <div class="seat">Target: 70–120 seats</div>
+      <a href="https://www.google.com/maps/d/viewer?mid=1POvNXR-46CR7qju1OnWYkK80n5BFxwE" target="_blank">
+        Enter Duty Grid
+      </a>
+    </div>
+
+    <!-- TECH -->
+    <div class="sector">
+      <h3>Tech / Admin</h3>
+      <div class="meta">
+        Index maintenance · system interpretation · infrastructure clarity
+      </div>
+      <div class="seat">Target: 50–80 seats</div>
+      <a href="https://www.google.com/maps/d/viewer?mid=1POvNXR-46CR7qju1OnWYkK80n5BFxwE" target="_blank">
+        Enter Duty Grid
+      </a>
+    </div>
+
+    <!-- PARENTS -->
+    <div class="sector">
+      <h3>Parents & Households</h3>
+      <div class="meta">
+        Household digital estates · family continuity stewards
+      </div>
+      <div class="seat">Target: 100–150 seats (distributed)</div>
+      <a href="https://www.google.com/maps/d/viewer?mid=1POvNXR-46CR7qju1OnWYkK80n5BFxwE" target="_blank">
+        Enter Duty Grid
+      </a>
+    </div>
+
+    <!-- STUDENTS -->
+    <div class="sector">
+      <h3>Students & Early Career</h3>
+      <div class="meta">
+        Future-ready system literacy · next-gen navigators
+      </div>
+      <div class="seat">Target: 80–120 seats</div>
+      <a href="https://www.google.com/maps/d/viewer?mid=1POvNXR-46CR7qju1OnWYkK80n5BFxwE" target="_blank">
+        Enter Duty Grid
+      </a>
+    </div>
+
+  </section>
+
+  <footer>
+    Civic Digital Infrastructure Alignment (CDIA) · Advisory Only  
+    <br/>
+    No authority claimed · Participation voluntary · Education by request
+  </footer>
+
+</main>
+
+</body>
+</html>
 
