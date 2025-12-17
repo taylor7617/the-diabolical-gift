@@ -1,1 +1,17 @@
+{
+  "updated": "2025-12-16T00:00:00-06:00",
+  "airSeats": 1000,
+  "dominance": "600–900",
+  "sectors": {
+    "educators": 0,
+    "veterans": 0,
+    "smallbiz": 0,
+    "trades": 0,
+    "health": 0,
+    "creative": 0,
+    "tech": 0,
+    "parents": 0,
+    "students": 0
+  }
+}
 
