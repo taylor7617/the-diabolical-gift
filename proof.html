@@ -1,1 +1,68 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DG · Proof Log</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;margin:0;background:#0b1020;color:#e5e7eb}
+    header{padding:18px 16px;border-bottom:1px solid #1f2a44;background:#060a16;position:sticky;top:0}
+    h1{margin:0;font-size:16px;letter-spacing:.06em}
+    .sub{color:#94a3b8;font-size:12px;margin-top:6px;line-height:1.35}
+    .wrap{max-width:1100px;margin:0 auto;padding:16px}
+    .card{border:1px solid #1f2a44;border-radius:14px;padding:12px;margin:10px 0;background:#0a1224}
+    .meta{color:#94a3b8;font-size:12px;margin-top:6px;line-height:1.35}
+    .pill{display:inline-block;border:1px solid #1f2a44;border-radius:999px;padding:4px 8px;font-size:12px;margin-right:6px;color:#cbd5e1}
+    .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    button{border:1px solid #1f2a44;background:#060a16;color:#e5e7eb;border-radius:12px;padding:8px 10px;cursor:pointer;font-weight:800}
+    .small{font-size:12px;color:#94a3b8}
+  </style>
+</head>
+<body>
+<header>
+  <h1>DG · Proof Log (Public)</h1>
+  <div class="sub">No authority claimed · Voluntary · Public + verifiable notes only</div>
+</header>
+
+<div class="wrap">
+  <div class="row">
+    <button id="reload">Reload</button>
+    <span class="small" id="updated"></span>
+  </div>
+  <div id="list"></div>
+</div>
+
+<script>
+  const PROOF_URL = "PASTE_YOUR_WEB_APP_URL_HERE?proof=1";
+
+  async function load(){
+    const res = await fetch(PROOF_URL, { cache:"no-store" });
+    const data = await res.json();
+    document.getElementById("updated").textContent = "Updated: " + (data.updated || "");
+    const list = document.getElementById("list");
+    list.innerHTML = "";
+    (data.items || []).slice().reverse().forEach(item=>{
+      const el = document.createElement("div");
+      el.className = "card";
+      el.innerHTML = `
+        <div class="row">
+          <span class="pill">${esc(item.status || "New")}</span>
+          <span class="pill">${esc(item.type || "")}</span>
+          <span class="pill">${esc(item.sector || "")}</span>
+          <span class="pill">${esc(item.city || "")}</span>
+        </div>
+        <div class="meta">${esc(item.timestamp || "")}</div>
+        ${item.what ? `<div style="margin-top:10px"><b>What:</b> ${esc(item.what)}</div>` : ""}
+        ${item.where ? `<div style="margin-top:6px"><b>Where:</b> ${esc(item.where)}</div>` : ""}
+        ${item.why ? `<div style="margin-top:6px"><b>Why:</b> ${esc(item.why)}</div>` : ""}
+      `;
+      list.appendChild(el);
+    });
+  }
+  function esc(s){return String(s||"").replace(/[&<>"']/g,c=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));}
+  document.getElementById("reload").onclick = load;
+  load();
+</script>
+</body>
+</html>
 
