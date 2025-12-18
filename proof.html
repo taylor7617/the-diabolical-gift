@@ -1,68 +1,210 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>DG · Proof Log</title>
+  <meta name="theme-color" content="#0b1020" />
   <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;margin:0;background:#0b1020;color:#e5e7eb}
-    header{padding:18px 16px;border-bottom:1px solid #1f2a44;background:#060a16;position:sticky;top:0}
-    h1{margin:0;font-size:16px;letter-spacing:.06em}
-    .sub{color:#94a3b8;font-size:12px;margin-top:6px;line-height:1.35}
+    :root{
+      --bg:#0b1020; --panel:#0a1224; --ink:#e5e7eb; --muted:#94a3b8; --line:#1f2a44; --accent:#38bdf8;
+      --ok:#22c55e; --warn:#f59e0b; --bad:#ef4444;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+    header{position:sticky;top:0;z-index:10;background:#060a16;border-bottom:1px solid var(--line);padding:16px}
+    h1{margin:0;font-size:16px;letter-spacing:.08em}
+    .sub{margin-top:6px;color:var(--muted);font-size:12px;line-height:1.35}
     .wrap{max-width:1100px;margin:0 auto;padding:16px}
-    .card{border:1px solid #1f2a44;border-radius:14px;padding:12px;margin:10px 0;background:#0a1224}
-    .meta{color:#94a3b8;font-size:12px;margin-top:6px;line-height:1.35}
-    .pill{display:inline-block;border:1px solid #1f2a44;border-radius:999px;padding:4px 8px;font-size:12px;margin-right:6px;color:#cbd5e1}
-    .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-    button{border:1px solid #1f2a44;background:#060a16;color:#e5e7eb;border-radius:12px;padding:8px 10px;cursor:pointer;font-weight:800}
-    .small{font-size:12px;color:#94a3b8}
+    .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+    .btn{
+      border:1px solid var(--line);background:#060a16;color:var(--ink);
+      border-radius:12px;padding:9px 12px;font-weight:900;cursor:pointer
+    }
+    .btn:hover{border-color:#2c3a61}
+    .input{
+      flex:1;min-width:260px;
+      border:1px solid var(--line);background:var(--panel);color:var(--ink);
+      border-radius:12px;padding:9px 10px;font-weight:700
+    }
+    .small{font-size:12px;color:var(--muted)}
+    .pill{
+      display:inline-block;border:1px solid var(--line);border-radius:999px;
+      padding:4px 10px;font-size:12px;color:#cbd5e1
+    }
+    .card{
+      border:1px solid var(--line);border-radius:14px;background:var(--panel);
+      padding:12px;margin:10px 0
+    }
+    .meta{margin-top:6px;color:var(--muted);font-size:12px;line-height:1.35}
+    .k{color:#cbd5e1;font-weight:900}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .status-ok{color:var(--ok)}
+    .status-warn{color:var(--warn)}
+    .status-bad{color:var(--bad)}
+    .hr{height:1px;background:var(--line);margin:12px 0}
+    .empty{padding:18px;border:1px dashed var(--line);border-radius:14px;color:var(--muted)}
+    code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:12px}
   </style>
 </head>
 <body>
 <header>
   <h1>DG · Proof Log (Public)</h1>
-  <div class="sub">No authority claimed · Voluntary · Public + verifiable notes only</div>
+  <div class="sub">
+    No authority claimed · Voluntary participation · Public + verifiable notes only · No personal contact info shown here
+  </div>
 </header>
 
 <div class="wrap">
-  <div class="row">
-    <button id="reload">Reload</button>
+  <div class="row" style="margin-bottom:10px">
+    <button class="btn" id="reload">Reload</button>
     <span class="small" id="updated"></span>
   </div>
+
+  <div class="row" style="margin-bottom:10px">
+    <input class="input" id="proofUrl" placeholder="Proof JSON URL (must end with ?proof=1)" />
+    <button class="btn" id="useUrl">Use URL</button>
+  </div>
+
+  <div class="card" id="health">
+    <div class="row">
+      <span class="pill">Source</span>
+      <span class="small" id="source"></span>
+    </div>
+    <div class="hr"></div>
+    <div class="small">
+      Expected JSON: <code>{ updated, items: [ { timestamp,type,sector,city,what,where,why,status } ] }</code>
+    </div>
+    <div class="small" style="margin-top:6px">
+      If you see errors, it usually means: Web App not public (“Anyone”), wrong URL, or JSON not in expected shape.
+    </div>
+    <div class="small" style="margin-top:8px" id="errorBox"></div>
+  </div>
+
   <div id="list"></div>
 </div>
 
 <script>
-  const PROOF_URL = "PASTE_YOUR_WEB_APP_URL_HERE?proof=1";
+  // 1) SET YOUR DEFAULT HERE ONCE:
+  // Replace the string below with your real Apps Script web app URL + "?proof=1"
+  const DEFAULT_PROOF_URL = "PASTE_YOUR_WEB_APP_URL_HERE?proof=1";
 
-  async function load(){
-    const res = await fetch(PROOF_URL, { cache:"no-store" });
-    const data = await res.json();
-    document.getElementById("updated").textContent = "Updated: " + (data.updated || "");
-    const list = document.getElementById("list");
-    list.innerHTML = "";
-    (data.items || []).slice().reverse().forEach(item=>{
+  // 2) OPTIONAL: allow passing ?proof=<encodedURL> in the proof page URL
+  // Example:
+  // proof.html?proof=https%3A%2F%2Fscript.google.com%2Fmacros%2Fs%2F...%2Fexec%3Fproof%3D1
+  function getQueryParam(name){
+    const p = new URLSearchParams(location.search);
+    return p.get(name);
+  }
+
+  function esc(s){
+    return String(s||"").replace(/[&<>"']/g,c=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+  }
+
+  function statusClass(s){
+    const t = String(s||"").toLowerCase();
+    if (t.includes("resolved")) return "status-ok";
+    if (t.includes("review")) return "status-warn";
+    if (t.includes("error") || t.includes("block")) return "status-bad";
+    return "";
+  }
+
+  let PROOF_URL = (() => {
+    const q = getQueryParam("proof");
+    return q ? q : DEFAULT_PROOF_URL;
+  })();
+
+  const els = {
+    list: document.getElementById("list"),
+    updated: document.getElementById("updated"),
+    source: document.getElementById("source"),
+    errorBox: document.getElementById("errorBox"),
+    proofUrl: document.getElementById("proofUrl")
+  };
+
+  function setError(msg){
+    els.errorBox.innerHTML = msg
+      ? `<div class="status-bad"><b>ERROR:</b> ${esc(msg)}</div>`
+      : `<div class="status-ok"><b>OK:</b> Loaded successfully.</div>`;
+  }
+
+  function render(items){
+    els.list.innerHTML = "";
+    if (!items || !items.length){
+      els.list.innerHTML = `<div class="empty">No proof entries yet. Submit one form response, then reload.</div>`;
+      return;
+    }
+
+    // newest first
+    items.slice().reverse().forEach(item => {
       const el = document.createElement("div");
       el.className = "card";
       el.innerHTML = `
         <div class="row">
-          <span class="pill">${esc(item.status || "New")}</span>
+          <span class="pill ${statusClass(item.status)}">${esc(item.status || "New")}</span>
           <span class="pill">${esc(item.type || "")}</span>
           <span class="pill">${esc(item.sector || "")}</span>
           <span class="pill">${esc(item.city || "")}</span>
         </div>
         <div class="meta">${esc(item.timestamp || "")}</div>
-        ${item.what ? `<div style="margin-top:10px"><b>What:</b> ${esc(item.what)}</div>` : ""}
-        ${item.where ? `<div style="margin-top:6px"><b>Where:</b> ${esc(item.where)}</div>` : ""}
-        ${item.why ? `<div style="margin-top:6px"><b>Why:</b> ${esc(item.why)}</div>` : ""}
+        ${item.what ? `<div style="margin-top:10px"><span class="k">What:</span> ${esc(item.what)}</div>` : ""}
+        ${item.where ? `<div style="margin-top:6px"><span class="k">Where:</span> ${esc(item.where)}</div>` : ""}
+        ${item.why ? `<div style="margin-top:6px"><span class="k">Why:</span> ${esc(item.why)}</div>` : ""}
       `;
-      list.appendChild(el);
+      els.list.appendChild(el);
     });
   }
-  function esc(s){return String(s||"").replace(/[&<>"']/g,c=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));}
+
+  async function load(){
+    els.source.textContent = PROOF_URL;
+    els.proofUrl.value = PROOF_URL;
+    els.updated.textContent = "";
+    setError("");
+
+    // Guard: if you forgot to set the URL
+    if (!PROOF_URL || PROOF_URL.includes("PASTE_YOUR_WEB_APP_URL_HERE")){
+      setError("You must set DEFAULT_PROOF_URL in proof.html (or pass ?proof=...).");
+      return;
+    }
+
+    try{
+      const res = await fetch(PROOF_URL, { cache:"no-store" });
+
+      if (!res.ok){
+        // Typical causes: Web App access not public, wrong URL, permissions
+        setError(`Fetch failed (${res.status}). Make sure Apps Script deployment access is "Anyone" and URL ends with ?proof=1.`);
+        return;
+      }
+
+      const data = await res.json();
+
+      // Validate expected shape
+      if (!data || typeof data !== "object" || !("items" in data)){
+        setError("JSON shape unexpected. Expected { updated, items: [...] }. Check your Apps Script doGet() proof mode.");
+        return;
+      }
+
+      els.updated.textContent = "Updated: " + (data.updated || "");
+      render(data.items || []);
+      setError(""); // clears -> OK
+    } catch (err){
+      setError(err && err.message ? err.message : String(err));
+    }
+  }
+
   document.getElementById("reload").onclick = load;
+  document.getElementById("useUrl").onclick = () => {
+    const u = (els.proofUrl.value || "").trim();
+    PROOF_URL = u;
+    // update address bar (optional)
+    const qp = new URLSearchParams(location.search);
+    qp.set("proof", u);
+    history.replaceState({}, "", location.pathname + "?" + qp.toString());
+    load();
+  };
+
   load();
 </script>
 </body>
 </html>
-
